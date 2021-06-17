@@ -1,0 +1,26 @@
+PROCEDURE `ProductsAddOrEdit`
+(	IN _id INT,
+ 	IN _product_name VARCHAR(255),
+ 	IN _description VARCHAR(255),
+ 	IN _slug VARCHAR(255),
+ 	IN _image BLOB(255),
+ 	IN _status VARCHAR(255),
+)
+BEGIN
+	IF _id = 0 THEN
+    INSERT INTO Products(product_name, description, slug, image, status) VALUES(_product_name, _description, _slug, _image, _status)
+    
+    SET _id = LAST_INSERT_id;
+    ELSE
+    UPDATE Products
+    SET
+    product_name = _product_name,
+    description = _description,
+    slug = _slug,
+    image =  _image,
+    status = _status
+    
+    WHERE id = _id;
+    END IF;
+    SELECT _id AS `id`;
+    END
